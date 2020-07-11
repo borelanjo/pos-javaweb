@@ -2,7 +2,6 @@ package dev.fujioka.eltonleite.application.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,17 +26,20 @@ import dev.fujioka.eltonleite.presentation.dto.shared.ResponseTO;
 @RequestMapping("/api/employees")
 public class EmployeeController {
 
-    @Autowired
-    private BaseService<Employee> service;
-    
-    @Autowired
-    private ResponseService responseService;
-    
+    private final BaseService<Employee> service;
+
+    private final ResponseService responseService;
+
+    public EmployeeController(final BaseService<Employee> service, final ResponseService responseService) {
+        this.service = service;
+        this.responseService = responseService;
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<ResponseTO<EmployeeResponseTO>> find(@PathVariable Long id) {
         return responseService.ok(EmployeeAssembler.from(service.findBy(id)));
     }
-    
+
     @GetMapping
     public ResponseEntity<ResponseTO<List<EmployeeResponseTO>>> findAll() {
         return responseService.ok(EmployeeAssembler.from(service.findAll()));
@@ -50,11 +52,12 @@ public class EmployeeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseTO<EmployeeResponseTO>> update(@PathVariable Long id, @RequestBody EmployeeRequestTO requestTO) {
+    public ResponseEntity<ResponseTO<EmployeeResponseTO>> update(@PathVariable Long id,
+            @RequestBody EmployeeRequestTO requestTO) {
         Employee employee = EmployeeAssembler.from(requestTO);
         return responseService.ok(EmployeeAssembler.from(service.update(id, employee)));
     }
-    
+
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
