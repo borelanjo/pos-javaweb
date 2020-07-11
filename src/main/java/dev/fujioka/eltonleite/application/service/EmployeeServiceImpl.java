@@ -3,7 +3,6 @@ package dev.fujioka.eltonleite.application.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dev.fujioka.eltonleite.domain.model.employee.Employee;
@@ -13,8 +12,12 @@ import dev.fujioka.eltonleite.infrastructure.persistence.hibernate.repository.Em
 @Service
 public class EmployeeServiceImpl implements BaseService<Employee> {
 
-    @Autowired
-    private EmployeeRepository repository;
+    private final EmployeeRepository repository;
+
+    public EmployeeServiceImpl(final EmployeeRepository repository) {
+        super();
+        this.repository = repository;
+    }
 
     @Override
     public Employee save(Employee entity) {
@@ -33,7 +36,7 @@ public class EmployeeServiceImpl implements BaseService<Employee> {
     @Override
     public Employee findBy(Long id) {
         Optional<Employee> optEmployee = repository.findById(id);
-        if(!optEmployee.isPresent()) {
+        if (!optEmployee.isPresent()) {
             throw new RuntimeException("Funcionário inexistente");
         }
         return optEmployee.get();
@@ -47,7 +50,7 @@ public class EmployeeServiceImpl implements BaseService<Employee> {
     @Override
     public void delete(Long id) {
         repository.deleteById(id);
-        
+
     }
 
 }

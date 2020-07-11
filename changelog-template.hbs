@@ -1,0 +1,60 @@
+# Changelog
+
+
+{{#each releases}}
+{{#if href}}
+## [{{title}}]({{href}}){{#if tag}} - {{isoDate}}{{/if}}
+{{else}}
+## {{title}}{{#if tag}} - {{isoDate}}{{/if}}
+{{/if}}
+
+{{#if summary}}
+{{summary}}
+{{/if}}
+
+{{#commit-list commits heading='### Added'}}
+
+{{#contains 'Adiciona' subject}}
+- {{#if breaking}}**Breaking change:** {{/if}}{{subject}} {{#if href}}[`{{shorthash}}`]({{href}}){{/if}}
+{{/contains}}
+{{#contains 'Cria' subject}}
+- {{#if breaking}}**Breaking change:** {{/if}}{{subject}} {{#if href}}[`{{shorthash}}`]({{href}}){{/if}}
+{{/contains}}
+{{#contains 'Inicia' subject}}
+- {{#if breaking}}**Breaking change:** {{/if}}{{subject}} {{#if href}}[`{{shorthash}}`]({{href}}){{/if}}
+{{/contains}}
+{{/commit-list}}
+
+{{#commit-list commits heading='### Changed'}}
+
+{{#contains 'Modifica' subject}}
+- {{#if breaking}}**Breaking change:** {{/if}}{{subject}} {{#if href}}[`{{shorthash}}`]({{href}}){{/if}}
+{{/contains}}
+{{#contains 'Altera' subject}}
+- {{#if breaking}}**Breaking change:** {{/if}}{{subject}} {{#if href}}[`{{shorthash}}`]({{href}}){{/if}}
+{{/contains}}
+{{#contains 'Atualiza' subject}}
+- {{#if breaking}}**Breaking change:** {{/if}}{{subject}} {{#if href}}[`{{shorthash}}`]({{href}}){{/if}}
+{{/contains}}
+{{/commit-list}}
+
+{{#commit-list commits heading='### Fixed'}}
+
+{{#contains 'Corrige' subject}}
+- {{#if breaking}}**Breaking change:** {{/if}}{{subject}} {{#if href}}[`{{shorthash}}`]({{href}});{{/if}}
+{{/contains}}
+{{/commit-list}}
+
+{{#commit-list commits heading='### Removed'}}
+
+{{#contains 'Remove' subject}}
+- {{#if breaking}}**Breaking change:** {{/if}}{{subject}} {{#if href}}[`{{shorthash}}`]({{href}});{{/if}}
+{{/contains}}
+{{#contains 'Exclui' subject}}
+- {{#if breaking}}**Breaking change:** {{/if}}{{subject}} {{#if href}}[`{{shorthash}}`]({{href}}){{/if}}
+{{/contains}}
+{{/commit-list}}
+
+
+
+{{/each}}
