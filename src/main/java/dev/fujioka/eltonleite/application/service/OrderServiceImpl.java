@@ -3,7 +3,6 @@ package dev.fujioka.eltonleite.application.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dev.fujioka.eltonleite.domain.model.order.Order;
@@ -13,8 +12,12 @@ import dev.fujioka.eltonleite.infrastructure.persistence.hibernate.repository.Or
 @Service
 public class OrderServiceImpl implements BaseService<Order> {
 
-    @Autowired
-    private OrderRepository repository;
+    private final OrderRepository repository;
+
+    public OrderServiceImpl(final OrderRepository repository) {
+        super();
+        this.repository = repository;
+    }
 
     @Override
     public Order save(Order entity) {
@@ -33,7 +36,7 @@ public class OrderServiceImpl implements BaseService<Order> {
     @Override
     public Order findBy(Long id) {
         Optional<Order> optOrder = repository.findById(id);
-        if(!optOrder.isPresent()) {
+        if (!optOrder.isPresent()) {
             throw new RuntimeException("Compra inexistente");
         }
         return optOrder.get();
@@ -47,7 +50,7 @@ public class OrderServiceImpl implements BaseService<Order> {
     @Override
     public void delete(Long id) {
         repository.deleteById(id);
-        
+
     }
 
 }

@@ -2,11 +2,8 @@ package dev.fujioka.eltonleite.presentation.assembler;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.time.LocalDate;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import dev.fujioka.eltonleite.domain.model.warehouse.Warehouse;
@@ -14,7 +11,6 @@ import dev.fujioka.eltonleite.presentation.dto.warehouse.WarehouseRequestTO;
 import dev.fujioka.eltonleite.presentation.dto.warehouse.WarehouseResponseTO;
 
 @ActiveProfiles("test")
-@SpringBootTest
 @DisplayName("Assembler: Armazéns")
 class WarehouseAssemblerTest {
 

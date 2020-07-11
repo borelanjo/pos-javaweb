@@ -3,7 +3,6 @@ package dev.fujioka.eltonleite.application.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dev.fujioka.eltonleite.domain.model.warehouse.Warehouse;
@@ -13,8 +12,11 @@ import dev.fujioka.eltonleite.infrastructure.persistence.hibernate.repository.Wa
 @Service
 public class WarehouseServiceImpl implements BaseService<Warehouse> {
 
-    @Autowired
-    private WarehouseRepository repository;
+    private final WarehouseRepository repository;
+
+    public WarehouseServiceImpl(final WarehouseRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public Warehouse save(Warehouse entity) {
@@ -33,7 +35,7 @@ public class WarehouseServiceImpl implements BaseService<Warehouse> {
     @Override
     public Warehouse findBy(Long id) {
         Optional<Warehouse> optWarehouse = repository.findById(id);
-        if(!optWarehouse.isPresent()) {
+        if (!optWarehouse.isPresent()) {
             throw new RuntimeException("Armazém inexistente");
         }
         return optWarehouse.get();
@@ -47,7 +49,7 @@ public class WarehouseServiceImpl implements BaseService<Warehouse> {
     @Override
     public void delete(Long id) {
         repository.deleteById(id);
-        
+
     }
 
 }
