@@ -6,7 +6,6 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import dev.fujioka.eltonleite.domain.model.employee.Employee;
@@ -14,7 +13,6 @@ import dev.fujioka.eltonleite.presentation.dto.employee.EmployeeRequestTO;
 import dev.fujioka.eltonleite.presentation.dto.employee.EmployeeResponseTO;
 
 @ActiveProfiles("test")
-@SpringBootTest
 @DisplayName("Assembler: Funcionários")
 class EmployeeAssemblerTest {
 

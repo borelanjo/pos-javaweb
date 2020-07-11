@@ -4,15 +4,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import dev.fujioka.eltonleite.domain.model. product. Product;
-import dev.fujioka.eltonleite.presentation.dto. product. ProductRequestTO;
-import dev.fujioka.eltonleite.presentation.dto. product. ProductResponseTO;
+import dev.fujioka.eltonleite.domain.model.product.Product;
+import dev.fujioka.eltonleite.presentation.dto.product.ProductRequestTO;
+import dev.fujioka.eltonleite.presentation.dto.product.ProductResponseTO;
 
 @ActiveProfiles("test")
-@SpringBootTest
 @DisplayName("Assembler: Produtos")
 class ProductAssemblerTest {
 

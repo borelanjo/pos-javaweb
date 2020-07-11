@@ -2,7 +2,6 @@ package dev.fujioka.eltonleite.application.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,17 +26,21 @@ import dev.fujioka.eltonleite.presentation.dto.shared.ResponseTO;
 @RequestMapping("/api/orders")
 public class OrderController {
 
-    @Autowired
-    private BaseService<Order> service;
-    
-    @Autowired
-    private ResponseService responseService;
-    
+    private final BaseService<Order> service;
+
+    private final ResponseService responseService;
+
+    public OrderController(final BaseService<Order> service, final ResponseService responseService) {
+        super();
+        this.service = service;
+        this.responseService = responseService;
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<ResponseTO<OrderResponseTO>> find(@PathVariable Long id) {
         return responseService.ok(OrderAssembler.from(service.findBy(id)));
     }
-    
+
     @GetMapping
     public ResponseEntity<ResponseTO<List<OrderResponseTO>>> findAll() {
         return responseService.ok(OrderAssembler.from(service.findAll()));
@@ -50,11 +53,12 @@ public class OrderController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseTO<OrderResponseTO>> update(@PathVariable Long id, @RequestBody OrderRequestTO requestTO) {
+    public ResponseEntity<ResponseTO<OrderResponseTO>> update(@PathVariable Long id,
+            @RequestBody OrderRequestTO requestTO) {
         Order order = OrderAssembler.from(requestTO);
         return responseService.ok(OrderAssembler.from(service.update(id, order)));
     }
-    
+
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {

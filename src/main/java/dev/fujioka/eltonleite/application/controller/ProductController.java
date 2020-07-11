@@ -2,7 +2,6 @@ package dev.fujioka.eltonleite.application.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,33 +26,37 @@ import dev.fujioka.eltonleite.presentation.dto.shared.ResponseTO;
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
-    
-    @Autowired
-    private ProductService service;
-    
-    @Autowired
-    private ResponseService responseService;
-    
+
+    private final ProductService service;
+
+    private final ResponseService responseService;
+
+    public ProductController(final ProductService service, final ResponseService responseService) {
+        this.service = service;
+        this.responseService = responseService;
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<ResponseTO<ProductResponseTO>> find(@PathVariable Long id) {
         return responseService.ok(ProductAssembler.from(service.findBy(id)));
     }
-    
+
     @GetMapping
     public ResponseEntity<ResponseTO<List<ProductResponseTO>>> findAll() {
         return responseService.ok(ProductAssembler.from(service.findAll()));
     }
-    
+
     @GetMapping(params = "manufactureYear")
-    public ResponseEntity<ResponseTO<List<ProductResponseTO>>> findAll(@RequestParam(value = "manufactureYear") Integer manufactureYear) {
+    public ResponseEntity<ResponseTO<List<ProductResponseTO>>> findAll(
+            @RequestParam(value = "manufactureYear") Integer manufactureYear) {
         return responseService.ok(ProductAssembler.from(service.findByManufactureYear(manufactureYear)));
     }
-    
-    @GetMapping(params = {"startYear", "endYear",})
-    public ResponseEntity<ResponseTO<List<ProductResponseTO>>> findAll(@RequestParam(value = "startYear") Integer startYear, @RequestParam(value = "endYear") Integer endYear) {
+
+    @GetMapping(params = { "startYear", "endYear", })
+    public ResponseEntity<ResponseTO<List<ProductResponseTO>>> findAll(
+            @RequestParam(value = "startYear") Integer startYear, @RequestParam(value = "endYear") Integer endYear) {
         return responseService.ok(ProductAssembler.from(service.findByManufactureYearBetween(startYear, endYear)));
     }
-    
 
     @PostMapping
     public ResponseEntity<ResponseTO<ProductResponseTO>> save(@RequestBody ProductRequestTO requestTO) {
@@ -62,11 +65,12 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseTO<ProductResponseTO>> update(@PathVariable Long id, @RequestBody ProductRequestTO requestTO) {
+    public ResponseEntity<ResponseTO<ProductResponseTO>> update(@PathVariable Long id,
+            @RequestBody ProductRequestTO requestTO) {
         Product product = ProductAssembler.from(requestTO);
         return responseService.ok(ProductAssembler.from(service.update(id, product)));
     }
-    
+
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {

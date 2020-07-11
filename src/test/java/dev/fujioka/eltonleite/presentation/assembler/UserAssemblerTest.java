@@ -6,15 +6,13 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import dev.fujioka.eltonleite.domain.model. user. User;
-import dev.fujioka.eltonleite.presentation.dto. user. UserRequestTO;
-import dev.fujioka.eltonleite.presentation.dto. user. UserResponseTO;
+import dev.fujioka.eltonleite.domain.model.user.User;
+import dev.fujioka.eltonleite.presentation.dto.user.UserRequestTO;
+import dev.fujioka.eltonleite.presentation.dto.user.UserResponseTO;
 
 @ActiveProfiles("test")
-@SpringBootTest
 @DisplayName("Assembler: Usuários")
 class UserAssemblerTest {
 

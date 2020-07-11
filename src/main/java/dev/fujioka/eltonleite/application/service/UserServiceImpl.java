@@ -3,7 +3,6 @@ package dev.fujioka.eltonleite.application.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dev.fujioka.eltonleite.domain.model.user.User;
@@ -13,8 +12,13 @@ import dev.fujioka.eltonleite.infrastructure.persistence.hibernate.repository.Us
 @Service
 public class UserServiceImpl implements BaseService<User> {
 
-    @Autowired
-    private UserRepository repository;
+    private final UserRepository repository;
+    
+    
+
+    public UserServiceImpl(final UserRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public User save(User entity) {
